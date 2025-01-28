@@ -2,7 +2,7 @@
 import appStore from "../assets/images/appStore.webp"
 import googlePlay from "../assets/images/googlePlay.png"
 import MasterCardLogo from "../assets/images/MasterCard.png"
-import AmazonPay from "../assets/images/AmazonPay.svg"
+import AmazonPay from "../assets/images/amazonpay.svg"
 import AmericanExpressLogo from "../assets/images/american-express-logo.png"
 
 export default function Footer() {
