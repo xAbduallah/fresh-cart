@@ -22,17 +22,17 @@ const ProductDetails = () => {
     }
 
     useEffect(() => {
-        
+
     }, []);
 
     return (
         <section className="p-5 mx-[5%] lg:mx-[20%] my-[2%] rounded-xl">
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Slider */}
-                <div className="flex flex-col lg:flex-row items-center justify-center rounded-lg w-full gap-4">
+                <div className="flex flex-col lg:flex-row justify-center rounded-lg w-full gap-4">
                     {/* Thumbnails */}
-                    <div className="flex lg:flex-col gap-2 w-full lg:max-w-[15%] max-h-[120px] lg:max-h-[400px]
-                        overflow-hidden lg:overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    <div className="flex lg:flex-col gap-2 w-full lg:max-w-[15%] max-h-[120px] lg:max-h-[400px] overflow-hidden lg:overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 items-center justify-center"
+                    >
                         {product.images?.map((image, index) => (
                             <img
                                 key={index}
@@ -43,6 +43,7 @@ const ProductDetails = () => {
                             />
                         ))}
                     </div>
+
 
 
                     {/* Main Image */}

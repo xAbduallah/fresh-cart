@@ -117,7 +117,7 @@ export default function ForgetPassword() {
                     <Loader className="animate-spin h-12 w-12 text-white" />
                 </div>
             )}
-            <div className="max-w-md mx-auto bg-[#F0F3F2] p-6 rounded-lg shadow-md text-[#6E6E6F]">
+            <div className="mt-[5%] max-w-md mx-auto bg-[#F0F3F2] p-6 rounded-lg shadow-md text-[#6E6E6F]">
                 <h1 className="text-2xl font-bold mb-4 text-green-600">
                     {step === 1 && 'Reset Your Password'}
                     {step === 2 && 'Enter Verification Code'}

@@ -29,7 +29,7 @@ export default function HomeSlider() {
   return (
     <>
       <div className="flex relative m-auto px-[5%] w-full gap-2 items-center">
-        <div className='w-3/4'>
+        <div className='w-full md:w-3/4'>
           {/* Carousel wrapper */}
           <div className='relative h-56 overflow-hidden rounded-lg md:h-96'>
             {images.map((image, index) => (
@@ -67,7 +67,7 @@ export default function HomeSlider() {
           </div>
 
         </div>
-        <div className="flex flex-col w-1/4 gap-2">
+        <div className="hidden md:flex flex-col w-1/4 gap-2">
           <img src={rightSide1} className='block w-full h-[185px] object-cover rounded-lg' alt={`Slide`} />
           <img src={rightSide2} className='block w-full h-[185px] object-cover rounded-lg' alt={`Slide`} />
         </div>
