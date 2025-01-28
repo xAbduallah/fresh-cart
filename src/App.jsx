@@ -22,10 +22,10 @@ function App() {
               <div className="pt-[1%]">
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<RoutesProtector><Login></Login></RoutesProtector>} />
-                  <Route path="/register" element={<RoutesProtector><Register></Register></RoutesProtector>} />
-                  <Route path="/forgetpassword" element={<RoutesProtector><ForgetPassword></ForgetPassword></RoutesProtector>} />
-                  <Route path="/productdetails" element={<RoutesProtector><ProductDetails></ProductDetails></RoutesProtector>} />
+                  <Route path="/login" element={<RoutesProtector routeName="login"><Login /></RoutesProtector>} />
+                  <Route path="/register" element={<RoutesProtector routeName="register"><Register /></RoutesProtector>} />
+                  <Route path="/forgetpassword" element={<RoutesProtector routeName="forgetpassword"><ForgetPassword /></RoutesProtector>} />
+                  <Route path="/productdetails" element={<RoutesProtector routeName="productdetails"><ProductDetails /></RoutesProtector>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
