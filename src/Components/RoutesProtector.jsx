@@ -10,9 +10,13 @@ export default function RoutesProtector(props) {
     const childType = props.children?.type;
     const componentName = childType?.name;
 
+    
     if (isAuthenticated && (componentName === "Login" || componentName === "Register" || componentName === "Forgetpassword")) {
         return <Navigate to="/" />;
     }
+
+    console.log("childType: ", childType?.name);
+    console.log("isAuthenticated: ", isAuthenticated);
     
     if (!isAuthenticated && componentName === "ProductDetails") {
         return <Navigate to="/login" />;
