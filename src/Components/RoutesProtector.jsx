@@ -13,6 +13,9 @@ export default function RoutesProtector(props) {
         return <Navigate to="/" />;
     }
 
+    console.log("RoutesProtector: ", componentName);
+    console.log("isAuthenticated: ", isAuthenticated);
+    
     if (!isAuthenticated && componentName === "ProductDetails") {
         return <Navigate to="/login" />;
     }
