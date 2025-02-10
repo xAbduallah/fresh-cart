@@ -4,12 +4,12 @@ import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Loader } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { UserContext } from "../Contexts/UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function Login() {
-    const Navigate = useNavigate(0);
+    const Navigate = useNavigate();
     const [response, setResponse] = useState({});
-    const [requesting, setRequesting] = useState(0);
+    const [requesting, setRequesting] = useState(false);
     const { user, login, logout } = useContext(UserContext);
 
     const validationSchema = Yup.object({
@@ -35,7 +35,7 @@ export default function Login() {
             .then((api) => {
                 setRequesting(false);
                 login(api.data.user, api.data.token);
-                Navigate('/')
+                Navigate('/');
             })
             .catch((api) => {
                 setRequesting(false);
@@ -47,10 +47,10 @@ export default function Login() {
         <>
             {requesting &&
                 <div className="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-black z-10">
-                    <Loader className="animate-spin h-12 w-12 text-white" />
+                    <Loader className="w-12 h-12 animate-spin text-[var(--text-primary)]" />
                 </div>
             }
-            <div className="max-w-md mx-auto bg-[#F0F3F2] p-6 rounded-lg shadow-md text-[#6E6E6F]">
+            <div className="max-w-md mx-auto bg-[var(--bg-secondary)] p-6 rounded-lg shadow-md text-[var(--text-primary)]">
                 <h1 className="text-2xl font-bold mb-4 text-green-600">Login</h1>
                 <Formik
                     initialValues={initialValues}
@@ -67,7 +67,8 @@ export default function Login() {
                                     type="email"
                                     id="email"
                                     name="email"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
+                                    autoComplete="username"
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
                                 />
                                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
@@ -83,16 +84,17 @@ export default function Login() {
                                     type="password"
                                     id="password"
                                     name="password"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
+                                    autoComplete="current-password"
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
                                 />
                                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
                             <div>
                                 <div className='flex flex-col'>
-                                        <button type="submit" className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition">
-                                            Login
-                                        </button>
+                                    <button type="submit" className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition">
+                                        Login
+                                    </button>
                                     <NavLink className="mt-2" to='/register'>New to FreshCart? <span className="font-semibold underline text-sm">Create an account</span>.</NavLink>
                                 </div>
 

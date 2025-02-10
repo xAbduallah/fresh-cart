@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const Navigate = useNavigate(0);
-    const [requesting, setRequesting] = useState(0);
+    const [requesting, setRequesting] = useState();
     const [response, setResponse] = useState({});
 
     const validationSchema = Yup.object({
@@ -31,7 +31,7 @@ export default function Register() {
             .matches(/^(010|011|012|015)[0-9]{8}$/, 'Phone number must be an Egyptian number.')
             .required('Phone number is required'),
     });
-    
+
     const initialValues = {
         name: '',
         email: '',
@@ -57,10 +57,10 @@ export default function Register() {
         <>
             {requesting &&
                 <div className="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-black z-10">
-                    <Loader className="animate-spin h-12 w-12 text-white" />
+                    <Loader className="w-12 h-12 animate-spin text-[var(--text-primary)]" />
                 </div>
             }
-            <div className="max-w-md mx-auto bg-[#F0F3F2] p-6 rounded-lg shadow-md text-[#6E6E6F]">
+            <div className="max-w-md mx-auto bg-[var(--bg-secondary)] p-6 rounded-lg shadow-md text-[var(--text-secondary)]">
                 <h1 className="text-2xl font-bold mb-4 text-green-600">Register</h1>
                 <Formik
                     initialValues={initialValues}
@@ -77,8 +77,8 @@ export default function Register() {
                                     type="text"
                                     id="name"
                                     name="name"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
+                                    />
                                 <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
@@ -90,8 +90,8 @@ export default function Register() {
                                     type="email"
                                     id="email"
                                     name="email"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
+                                    />
                                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
@@ -103,8 +103,8 @@ export default function Register() {
                                     type="password"
                                     id="password"
                                     name="password"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
+                                    />
                                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
@@ -116,8 +116,8 @@ export default function Register() {
                                     type="password"
                                     id="rePassword"
                                     name="rePassword"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
+                                    />
                                 <ErrorMessage name="rePassword" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
@@ -129,8 +129,8 @@ export default function Register() {
                                     type="text"
                                     id="phone"
                                     name="phone"
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
+                                    className="formik-field w-full p-2 bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-lg"
+                                    />
                                 <ErrorMessage name="phone" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 

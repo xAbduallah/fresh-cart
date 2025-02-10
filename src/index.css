@@ -3,16 +3,55 @@
 @tailwind utilities;
 
 :root {
-    --main-color: #0aad0a;
-    --light-color: #f0f3f2;
-    --shadow: rgba(145, 158, 171, .2) 0px 2px 4px -1px, rgba(145, 158, 171, .14) 0px 4px 5px 0px, rgba(145, 158, 171, .12) 0px 1px 10px 0px;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f3f4f6;
+    --bg-tertiary: #e5e7eb;
+
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-tertiary: #6B7280;
+
+    --border-primary: #e5e7eb;
+    --border-secondary: #d1d5db;
+
+    --shadow: rgba(145, 158, 171, .2) 0px 2px 4px -1px,
+        rgba(145, 158, 171, .14) 0px 4px 5px 0px,
+        rgba(145, 158, 171, .12) 0px 1px 10px 0px;
     --font-family: 'Encode Sans Expanded', sans-serif;
     --rating-color: #ffc908;
 }
+
+.dark {
+    --bg: rgb(31, 31, 31);
+
+    --bg-primary: var(--bg);
+    --bg-secondary: color-mix(in srgb, var(--bg) 90%, white);
+    --bg-tertiary: color-mix(in srgb, var(--bg) 70%, white);
+
+    --text-primary: white;
+    --text-secondary: color-mix(in srgb, var(--text-primary) 50%, gray);
+    --text-tertiary: color-mix(in srgb, var(--text-primary) 10%, gray);
+
+    --border-primary: color-mix(in srgb, var(--bg) 40%, white);
+    --border-secondary: color-mix(in srgb, var(--bg) 60%, white);
+
+    --shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px -1px,
+        rgba(0, 0, 0, 0.24) 0px 4px 5px 0px,
+        rgba(0, 0, 0, 0.22) 0px 1px 10px 0px;
+}
+
 body {
     font-family: var(--font-family) !important;
 }
-.product:hover {
-    box-shadow: var(--shadow);
-    border: solid 1px var(--main-color);
+
+.mac-scroll::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 5px;
+    height: 5px;
+}
+
+.mac-scroll::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--color-secondary);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
