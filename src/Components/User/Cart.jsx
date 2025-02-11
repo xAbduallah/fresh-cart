@@ -51,22 +51,20 @@ export default function Cart() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row md:items-end gap-4 mt-4 sm:mt-0">
-                        <div className="text-center">
+                    <div className="flex flex-col md:flex-row md:items-end gap-4 mt-4 sm:mt-0 mx-auto">
+                        <div className="flex gap-5 items-center text-center">
                             <p className="text-gray-400 dark:text-gray-500 text-sm">Total Amount</p>
                             <p className="text-xl font-bold text-gray-600 dark:text-gray-300">
                                 {totalCartPrice} EGP
                             </p>
                         </div>
-                        <button
-                            onClick={clearCart}
-                            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center gap-2">
-                            <Trash2 size={18} />
+                        <button onClick={clearCart}
+                            className="px-8 py-2 bg-red-500 hover:bg-red-600 text-[var(--text-primary)] font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
                             Clear Cart
+                            <Trash2 size={18} />
                         </button>
-                        <Link
-                            to="/checkout"
-                            className="whitespace-nowrap px-8 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                        <Link to="/checkout"
+                            className="px-8 py-2 bg-green-600 hover:bg-green-700 text-[var(--text-primary)] font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
                             <span>Checkout</span>
                             <ArrowRight size={18} />
                         </Link>
@@ -83,18 +81,18 @@ export default function Cart() {
                                     <img
                                         src={item.product.imageCover}
                                         alt={item.product.title}
-                                        className="w-24 h-24 object-contain rounded-lg group-hover:scale-105 transition-transform duration-300" />
+                                        className="w-16 h-16 md:w-24 md:h-24 object-contain rounded-lg group-hover:scale-105 transition-transform duration-300" />
                                     <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-10 transition-opacity" />
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">
                                         {item.product.brand?.name}
                                     </h4>
-                                    <h5 className="mt-1 text-lg font-semibold text-gray-900 dark:text-white line-clamp-1 hover:text-green-600 transition-colors duration-300">
+                                    <h5 className="text-sm md:text-lg font-semibold text-gray-900 dark:text-white line-clamp-1 hover:text-green-600 transition-colors duration-300">
                                         {item.product.title}
                                     </h5>
 
-                                    <p className="text-gray-600 dark:text-gray-300 font-medium">
+                                    <p className="text-[var(--text-secondary)] font-medium">
                                         {item.price.toFixed(2)} EGP
                                     </p>
                                 </div>
@@ -103,8 +101,8 @@ export default function Cart() {
                             <div className="flex items-center space-x-6 mt-4 sm:mt-0">
                                 <div className="flex relative items-center space-x-1 bg-[var(--bg-secondary)] rounded-lg p-1">
                                     {updatingProduct === item.product._id && (
-                                        <div className="absolute inset-0 flex items-center justify-center rounded-lg">
-                                            <Loader className="w-7 h-7 animate-spin text-[var(--text-primary)]" />
+                                        <div className="absolute inset-0 flex items-center justify-center ">
+                                            <Loader className="w-6 h-6 animate-spin text-[var(--text-primary)]" />
                                         </div>
                                     )}
                                     <button

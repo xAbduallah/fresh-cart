@@ -47,7 +47,7 @@ export default function ProductDetails() {
     if (product && mainImage === '') {
         setMainImage(product.imageCover);
     }
-
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (isLoading) return <GetLoading />;
 
     return (
@@ -136,7 +136,7 @@ export default function ProductDetails() {
                     </div>
 
                     {/* Add to Cart Button */}
-                    <div className="relative mt-8">
+                    <div className="relative mt-8 flex justify-center">
                         <button
                             onClick={addToCart}
                             disabled={updatingProduct}

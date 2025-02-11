@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-[-3rem] relative py-5 overflow-hidden bg-[linear-gradient(130deg,var(--bg-primary)_0%,var(--bg-secondary)_50%,var(--bg-primary)_100%)]">
+      <div className="mx-[-5%] relative py-5 overflow-hidden bg-[linear-gradient(130deg,var(--bg-primary)_0%,var(--bg-secondary)_50%,var(--bg-primary)_100%)]">
         <div className="relative z-20 flex items-center h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8">
@@ -77,7 +77,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H1" />
                   </svg>
                 </Link>
-                <Link to="/categories" className="px-8 py-3 border-2 border-[var(--text-primary)] text-[var(--text-primary)] font-semibold rounded-lg hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] transition-all duration-300">
+                <Link to="/categories" className="px-8 py-3 border border-[var(--text-primary)] text-[var(--text-primary)] font-semibold rounded-lg hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] transition-all duration-300">
                   Browse Categories
                 </Link>
               </div>

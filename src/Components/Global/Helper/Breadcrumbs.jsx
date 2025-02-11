@@ -6,29 +6,22 @@ const Breadcrumbs = () => {
     const location = useLocation();
     let pathnames = location.pathname.split("/").filter((x) => x);
 
-    // If we're on the home page (no pathnames), don't render anything
     if (pathnames.length === 0) {
         return null;
     }
 
-    // If we're on a product details page, handle the product ID
     if (pathnames[0] === "productdetails") {
-        pathnames = ["Products", "Product Details"];
+        pathnames = ["Product Details"];
     }
 
     const formatPathName = (name) => {
-        // Handle special cases
         switch (name.toLowerCase()) {
             case "productdetails":
                 return "PRODUCT DETAILS";
             case "products":
                 return "PRODUCTS";
             default:
-                // Split by capital letters and join with space
-                return name
-                    .replace(/([A-Z])/g, ' $1')
-                    .trim()
-                    .toUpperCase();
+                return name.replace(/([A-Z])/g, ' $1').trim().toUpperCase();
         }
     };
 
@@ -40,7 +33,6 @@ const Breadcrumbs = () => {
                 HOME
             </Link>
 
-            {/* Path links */}
             {pathnames.map((name, index) => {
                 const isLast = index === pathnames.length - 1;
                 const routeTo = isLast ? '#' : `/${pathnames.slice(0, index + 1).join("/")}`;

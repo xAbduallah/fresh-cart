@@ -14,15 +14,15 @@ export default function Footer() {
 
             <div className="ms-[1%] me-[1%]">
                 <div className="flex items-center flex-col lg:flex-row justify-between w-[100%] mt-5 gap-3">
-                    <input 
-                        type="email" 
-                        placeholder="Email .." 
+                    <input
+                        type="email"
+                        placeholder="Email .."
                         className="w-[75%] py-2 px-3 rounded-md border border-gray-300 dark:border-gray-600 
                                  text-gray-900 dark:text-white bg-[var(--bg-tertiary)] 
                                  focus:border-green-500 active:border-green-400
                                  placeholder:text-gray-500 dark:placeholder:text-gray-400"
                     />
-                    <span className="w-[65%] lg:w-[20%] px-5 py-2 text-lg text-center text-white 
+                    <span className="w-fit lg:w-[20%] px-5 py-2 text-lg text-center text-white 
                                    bg-green-600 rounded-lg cursor-pointer hover:bg-green-700 
                                    focus:ring-4 transition-colors duration-200">
                         Share App Link

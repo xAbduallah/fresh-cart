@@ -17,7 +17,7 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
             backgroundColor: 'var(--bg-tertiary)',
         },
         '&.Mui-selected': {
-            backgroundColor: 'var(--color-primary)',
+            backgroundColor: 'var(--bg-tertiary)',
             color: 'white',
             '&:hover': {
                 backgroundColor: 'var(--color-primary-hover)',
@@ -166,7 +166,7 @@ export default function Products() {
                     page={currentPage}
                     onChange={handlePageChange}
                     size="large"
-                    className="text-gray-900 dark:text-white"
+                    className="text-[var(--text-primary)]"
                 />
             </div>
         </div>

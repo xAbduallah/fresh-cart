@@ -1,5 +1,5 @@
-import { Loader } from 'lucide-react';
-import { useState, useContext } from "react";
+import { House, Loader } from 'lucide-react';
+import { useState, useContext, useEffect, useRef } from "react";
 import { ShoppingCart, User2Icon, Package, Heart, LogOut, LogIn, ShoppingBag, Moon, Sun, Menu } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
@@ -10,34 +10,37 @@ import { ThemeContext } from '../../Contexts/ThemeContext';
 export default function Navbar() {
   const location = useLocation();
   const Navigate = useNavigate();
+  const menuRef = useRef(null);
+  const userMenuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
-
   const { user, logout } = useContext(UserContext);
-  const { numOfCartItems, destroyCart, gettingCart } = useContext(CartContext);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { numOfCartItems, destroyCart, gettingCart } = useContext(CartContext);
+
 
   function logoutUser() {
     logout();
     destroyCart();
+    Navigate('/login');
   }
 
-  const menuItems = user ? [
-    { icon: <Package className="w-4 h-4" />, label: 'Orders', link: '/allorders' },
-    { icon: <Heart className="w-4 h-4" />, label: 'Wishlist', link: '/wishlist' },
-    {
-      icon: <LogOut className="w-4 h-4" />, label: 'Logout',
-      onClick: () => { logoutUser(); setUserMenuOpen(false); },
-      className: 'text-red-500 hover:text-red-600'
-    }
-  ] : [
-    {
-      icon: <LogIn className="w-4 h-4" />,
-      label: 'Login',
-      link: '/login',
-      onClick: () => setUserMenuOpen(false)
-    }
-  ];
+  const menuItems = user ?
+    [
+      { icon: <Package className="w-4 h-4" />, label: 'Orders', link: '/allorders' },
+      { icon: <Heart className="w-4 h-4" />, label: 'Wishlist', link: '/wishlist' },
+      {
+        icon: <LogOut className="w-4 h-4" />, label: 'Logout',
+        onClick: () => { logoutUser(); setUserMenuOpen(false); },
+        className: 'text-red-500 hover:text-red-600'
+      }
+    ] :
+    [
+      {
+        icon: <LogIn className="w-4 h-4" />, label: 'Login', link: '/login',
+        onClick: () => setUserMenuOpen(false)
+      }
+    ];
 
   const navLinkStyles = (isActive) => `
     relative px-3 py-2 text-[var(--text-primary)] hover:text-[var(--text-tertiary)] transition-colors duration-200
@@ -46,6 +49,21 @@ export default function Navbar() {
     after:left-0 after:bottom-0 after:bg-[var(--bg-secondary)] 
     after:transition-transform after:duration-300
     hover:after:scale-x-100`;
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if ((menuOpen && menuRef.current && !menuRef.current.contains(event.target)) ||
+        (isUserMenuOpen && userMenuRef.current && !userMenuRef.current.contains(event.target))) {
+        setMenuOpen(false);
+        setUserMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen, isUserMenuOpen]);
 
   return (
     <>
@@ -93,7 +111,7 @@ export default function Navbar() {
             </button>
 
             {/* User Menu Button */}
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <button className="p-2 rounded-full bg-[var(--bg-tertiary)] hover:bg-[var(--bg-primary)] transition" onClick={() => setUserMenuOpen((prev) => !prev)}>
                 <User2Icon className="w-6 h-6 text-gray-600 dark:text-gray-300" />
               </button>
@@ -146,14 +164,22 @@ export default function Navbar() {
 
           {/* Hamburger Menu */}
           <div className='flex lg:hidden'>
-            <button className='text-3xl focus:outline-none' onClick={() => setMenuOpen(!menuOpen)}>
+            <button
+              className="text-3xl focus:outline-none"
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                setMenuOpen((prev) => !prev);
+              }}
+              ref={menuRef}
+            >
               <Menu className="w-6 h-6 text-[var(--text-primary)]" />
             </button>
+
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`${menuOpen ? "block" : "hidden"} flex flex-col px-20 bg-[var(--bg-primary)] lg:hidden`}>
+        <div className={`${menuOpen ? "block" : "hidden"} flex flex-col px-20 bg-[var(--bg-primary)] lg:hidden`} ref={menuRef}>
           {/* User Section */}
           <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             {user ?
@@ -188,7 +214,7 @@ export default function Navbar() {
             {/* Home Link */}
             <NavLink to='/' onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 w-full px-3 py-2 text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-colors">
-              <i className="fa-solid fa-home w-5 h-5"></i>
+              <House className="w-5 h-5" />
               <span>Home</span>
             </NavLink>
 
@@ -228,7 +254,7 @@ export default function Navbar() {
                   <span>{item.label}</span>
                 </NavLink>
                 :
-                <>
+                <div key='theme-toggle'>
                   {/* Theme Toggle */}
                   <button onClick={() => {
                     toggleDarkMode();
@@ -251,7 +277,7 @@ export default function Navbar() {
                     {item.icon}
                     <span>{item.label}</span>
                   </button>
-                </>
+                </div>
             ))}
           </div>
         </div>

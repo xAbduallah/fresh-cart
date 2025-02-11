@@ -7,7 +7,7 @@ import RatingStars from '../Global/Helper/RatingStars';
 import toast from 'react-hot-toast';
 
 export default function Wishlist() {
-    const { wishlist, removeFromWishlist } = useContext(UserContext);
+    const { wishlist, removeFromWishlist, isLoadingWishlist } = useContext(UserContext);
     const { addProductToCart, updatingProduct } = useContext(CartContext);
 
     const handleAddToCart = async (item) => {
@@ -48,65 +48,59 @@ export default function Wishlist() {
                         </h2>
                     </div>
 
-                    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <div className="divide-y divide-gray-200 dark:divide-gray-700 max-h-[600px] overflow-y-auto">
                         {wishlist.map((item) => (
                             <motion.div key={item.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                                className="p-6 flex flex-col sm:flex-row items-center gap-6">
-
+                                className="p-4 flex flex-col sm:flex-row items-start gap-4">
+                                
                                 {/* Product Image */}
-                                <div className="w-full sm:w-20 h-20 flex-shrink-0">
+                                <div className="w-full sm:w-20 h-28 flex-shrink-0">
                                     <img
                                         src={item.imageCover}
                                         alt={item.title}
-                                        className="w-full h-full object-contain rounded-lg"
+                                        className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-700"
                                     />
                                 </div>
 
                                 {/* Product Details */}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex flex-col sm:flex-row justify-between gap-4">
-                                        <div>
-                                            <h3 className="text-lg font-medium text-gray-900 dark:text-white line-clamp-1">
-                                                {item.title}
-                                            </h3>
-                                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                                {item.brand?.name}
-                                            </p>
-                                            <div className="mt-2 flex items-center gap-4">
-                                                <RatingStars rating={item.ratingsAverage} />
-                                                <span className="text-sm text-gray-500 dark:text-gray-400">
-                                                    ({item.ratingsQuantity} reviews)
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col items-end gap-2">
-                                            <span className="text-xl font-bold text-gray-900 dark:text-white">
-                                                {item.price} EGP
+                                <div className="flex-1 flex flex-col sm:flex-row justify-between gap-2">
+                                    <div className='flex flex-col gap-1'>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">{item.brand?.name}</p>
+                                        <h3 className="text-lg font-medium text-gray-900 dark:text-white line-clamp-2">{item.title}</h3>
+                                        <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price} EGP</span>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <RatingStars rating={item.ratingsAverage} />
+                                            <span className="text-sm text-gray-500 dark:text-gray-400">
+                                                ({item.ratingsQuantity})
                                             </span>
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => removeFromWishlist(item.id)}
-                                                    className="p-2 text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 
-                                                             transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-                                                    title="Remove from wishlist"
-                                                >
-                                                    <Trash2 className="w-5 h-5" />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleAddToCart(item)}
-                                                    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg 
-                                                             hover:bg-green-600 dark:hover:bg-green-700 transition-colors"
-                                                    disabled={updatingProduct === item.id}
-                                                >
-                                                    {updatingProduct === item.id ? (
-                                                        <Loader className="w-4 h-4 animate-spin text-[var(--text-primary)]" />
-                                                    ) : (
-                                                        <ShoppingCart className="w-4 h-4" />
-                                                    )}
-                                                    Add to Cart
-                                                </button>
-                                            </div>
                                         </div>
+                                    </div>
+
+                                    {/* Add to Cart and Remove from Wishlist */}
+                                    <div className="flex flex-wrap sm:flex-col justify-center gap-2">
+                                        <button
+                                            onClick={() => handleAddToCart(item)}
+                                            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors"
+                                            disabled={updatingProduct === item.id}
+                                        >
+                                            {updatingProduct === item.id ?
+                                                <Loader className="w-4 h-4 animate-spin" /> :
+                                                <ShoppingCart className="w-4 h-4" />
+                                            }
+                                            Add to Cart
+                                        </button>
+                                        <button
+                                            onClick={() => removeFromWishlist(item.id)}
+                                            className="flex items-center gap-2 px-4 py-2 text-red-500 hover:text-white hover:bg-red-500 border border-red-500 rounded-lg transition-colors"
+                                            title="Remove from wishlist"
+                                        >
+                                            {isLoadingWishlist ?
+                                                <Loader className="w-4 h-4 animate-spin" /> :
+                                                <Trash2 className="w-4 h-4" />
+                                            }
+                                            Remove
+                                        </button>
                                     </div>
                                 </div>
                             </motion.div>

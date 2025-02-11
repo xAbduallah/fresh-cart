@@ -34,7 +34,7 @@ function App() {
               <div className="relative flex flex-col justify-between min-h-screen text-[var(--text-primary)] bg-[var(--bg-primary)] transition-colors duration-200">
                 <Navbar />
                 <QueryClientProvider client={queryClient}>
-                  <div className="max-w-8xl mx-[3rem]">
+                  <div className="max-w-8xl mx-[5%]">
                     <Breadcrumbs />
                     <Toaster position="bottom-right" reverseOrder={false} />
                     <Routes>

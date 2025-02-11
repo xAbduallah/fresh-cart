@@ -3,13 +3,10 @@ import * as Yup from 'yup';
 import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Loader } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../Contexts/UserContext";
 import { CartContext } from '../../Contexts/CartContext';
 
 export default function CheckOut() {
-    const Navigate = useNavigate(0);
-    const [response, setResponse] = useState({});
     const [requesting, setRequesting] = useState();
     const { user } = useContext(UserContext);
     const { totalCartPrice, cartId } = useContext(CartContext);
@@ -34,7 +31,7 @@ export default function CheckOut() {
             return;
         }
         setRequesting(true);
-        axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`,
+        axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${window.location.origin}`,
             { shippingAddress: values },
             { headers: { token: user?.token } })
             .then((api) => {
@@ -49,8 +46,8 @@ export default function CheckOut() {
     return (
         <>
             {requesting > 0 && <div className="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-black z-10">
-                    <Loader className="animate-spin h-12 w-12 text-[var(--text-primary)]" />
-                </div>
+                <Loader className="animate-spin h-12 w-12 text-[var(--text-primary)]" />
+            </div>
             }
             <div className="max-w-xl mx-auto bg-[var(--bg-secondary)] p-6 rounded-lg shadow-md text-[var(--text-secondary)]">
                 <h1 className="text-2xl font-bold mb-4 text-green-600">Checkout</h1>
@@ -106,14 +103,6 @@ export default function CheckOut() {
                                     Place Order <span className='font-bold'>{totalCartPrice} EGP</span>
                                 </button>
                             </div>
-
-                            {/* Response Message */}
-                            {response?.statusMsg && (
-                                <div className="mt-5 rounded-lg flex flex-col items-center p-1">
-                                    <h1 className={` ${response.statusMsg === "fail" ? 'text-red-600' : 'text-green-600'}`}>{response.message}</h1>
-                                    <hr className="w-[50%] h-1 bg-red-100" />
-                                </div>
-                            )}
                         </Form>
                     )}
                 </Formik>
